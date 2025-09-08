@@ -16,6 +16,7 @@ namespace CRUD.BL.Repositories
         Task<ProductModel> GetProduct(int id);
         Task<bool> ProductModelExists(int id);
         Task UpdateProduct(ProductModel productModel);
+        Task DeleteProduct(int id);
     }
     public class ProductRepository(CRUDDbContext dbContext) : IProductRepository
     {
@@ -45,6 +46,12 @@ namespace CRUD.BL.Repositories
         {
             dbContext.Entry(productModel).State = EntityState.Modified;
             await dbContext.SaveChangesAsync();
+        }
+        public async Task DeleteProduct(int id)
+        {
+            var product = dbContext.Products.FirstOrDefault(n=>n.ID==id);
+            dbContext.Products.Remove(product);
+            await dbContext.SaveChangesAsync();  
         }
     }
 }

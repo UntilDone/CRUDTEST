@@ -15,6 +15,7 @@ namespace CRUD.BL.Services
         Task<ProductModel> GetProduct(int id);
         Task<bool> ProductModelExists(int id);
         Task UpdateProduct(ProductModel productModel);
+        Task DeleteProduct(int id);
     }
     public class ProductServices(IProductRepository productRepository) : IProductService
     {
@@ -43,5 +44,9 @@ namespace CRUD.BL.Services
         {
             return productRepository.UpdateProduct(productModel);
         }
+        public Task DeleteProduct(int id)
+        {
+            return productRepository.DeleteProduct(id);
+        }   
     }
 }

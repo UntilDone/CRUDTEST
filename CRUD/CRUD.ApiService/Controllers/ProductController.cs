@@ -24,10 +24,10 @@ namespace CRUD.ApiService.Controllers
             return Ok(new BaseResponseModel { Success = true });
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<BaseResponseModel>>GetProduct(int id)
+        public async Task<ActionResult<BaseResponseModel>> GetProduct(int id)
         {
             var productModel = await productService.GetProduct(id);
-            if(productModel == null)
+            if (productModel == null)
             {
                 return Ok(new BaseResponseModel { Success = false, ErrorMessage = "Not Found" });
 
@@ -42,6 +42,16 @@ namespace CRUD.ApiService.Controllers
                 return Ok(new BaseResponseModel { Success = false, ErrorMessage = "Bad request" });
             }
             await productService.UpdateProduct(productModel);
+            return Ok(new BaseResponseModel { Success = true });
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            if (!await productService.ProductModelExists(id))
+            {
+                return Ok(new BaseResponseModel { Success = false, ErrorMessage = "Not Found" });
+            }
+            await productService.DeleteProduct(id);
             return Ok(new BaseResponseModel { Success = true });
         }
     }
