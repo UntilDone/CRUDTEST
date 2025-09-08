@@ -7,7 +7,7 @@
 }
 else
 {
-    <a class="btn btn-primary">Create</a>
+    <a class="btn btn-primary" href="/product/create">Create</a>
     <table class="table">
         <thread>
             <tr>
@@ -29,7 +29,7 @@ else
                     <td>@product.Description</td>
                     <td>@product.CreateAt.ToShortDateString()</td>
                     <td>
-                        <a class="btn btn-secondary">Update</a>
+                        <a class="btn btn-secondary" href="/product/update/@product.ID">Update</a>
                         <button class="btn btn-danger">Delete</button>
                     </td>
                 </tr>

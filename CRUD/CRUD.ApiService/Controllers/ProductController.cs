@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using CRUD.Model.Models;
 using CRUD.BL.Services;
+using CRUD.Model.Entities;
+using Microsoft.VisualBasic;
 
 namespace CRUD.ApiService.Controllers
 {
@@ -10,10 +12,37 @@ namespace CRUD.ApiService.Controllers
     public class ProductController(IProductService productService) : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<BaseResponseModel>> GetProducts() 
+        public async Task<ActionResult<BaseResponseModel>> GetProducts()
         {
             var products = await productService.GetProducts();
-            return Ok(new BaseResponseModel { Success = true, Data = products }); 
+            return Ok(new BaseResponseModel { Success = true, Data = products });
+        }
+        [HttpPost]
+        public async Task<ActionResult<ProductModel>> CreateProduct(ProductModel productModel)
+        {
+            await productService.CreateProduct(productModel);
+            return Ok(new BaseResponseModel { Success = true });
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<BaseResponseModel>>GetProduct(int id)
+        {
+            var productModel = await productService.GetProduct(id);
+            if(productModel == null)
+            {
+                return Ok(new BaseResponseModel { Success = false, ErrorMessage = "Not Found" });
+
+            }
+            return Ok(new BaseResponseModel { Success = true, Data = productModel });
+        }
+        [HttpPut("{id}")]
+        public async Task<ActionResult<BaseResponseModel>> UpdateProduct(int id, ProductModel productModel)
+        {
+            if (id != productModel.ID || !await productService.ProductModelExists(id))
+            {
+                return Ok(new BaseResponseModel { Success = false, ErrorMessage = "Bad request" });
+            }
+            await productService.UpdateProduct(productModel);
+            return Ok(new BaseResponseModel { Success = true });
         }
     }
 }
