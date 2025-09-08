@@ -18,6 +18,7 @@ namespace CRUD.Web.Components.Pages.Product
                 ProductModels = JsonConvert.DeserializeObject<List<ProductModel>>(res.Data.ToString());
             }
             await base.OnInitializedAsync();
+            
         }
     }
 }

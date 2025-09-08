@@ -1,0 +1,20 @@
+﻿@page "/product/create"
+<h3>CreateProduct</h3>
+@rendermode InteractiveServer
+
+<EditForm Model="Model">
+    <div class="Container">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label>ProductName</label>
+                <InputText class="form-control" @bind-Value="Model.ProductName" />
+                <ValidationMessage For="()=>Model.ProductName"/>
+            </div>
+            <div class="col-md-6">
+                <label>Quantity</label>
+                <InputText class="form-control" @bind-Value="Model.Quantity" />
+                <ValidationMessage For="() => Model.Quantity" />
+            </div>
+        </div>
+    </div>
+</EditForm>
