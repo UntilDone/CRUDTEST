@@ -4,9 +4,11 @@ using CRUD.Model.Models;
 using CRUD.BL.Services;
 using CRUD.Model.Entities;
 using Microsoft.VisualBasic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CRUD.ApiService.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController(IProductService productService) : ControllerBase
