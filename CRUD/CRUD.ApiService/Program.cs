@@ -21,9 +21,10 @@ builder.Services.AddDbContext<CRUDDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+var secret = builder.Configuration.GetValue<string>("Jwt:Secret");
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
-    options.TokenValidationParameters = new TokenValidationParameters = new TokenValidationParameters
+    options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
         ValidateAudience = true,
