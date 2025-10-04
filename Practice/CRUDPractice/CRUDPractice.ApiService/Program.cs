@@ -1,3 +1,5 @@
+using BlazorApp.BL.Repositories;
+using BlazorApp.BL.Services;
 using BlazorApp.Database.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +21,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddScoped<IProductService, ProductService>();
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 
